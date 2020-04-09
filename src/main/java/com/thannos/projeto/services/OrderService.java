@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.thannos.projeto.entities.Order;
 import com.thannos.projeto.repositories.OrderRepository;
+import com.thannos.projeto.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class OrderService {
@@ -21,7 +22,7 @@ public class OrderService {
 	
 	public Order findById(Long id) {
 		Optional<Order> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 }
